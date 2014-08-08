@@ -21,8 +21,6 @@
 ## -----------------------------------------------------------------
 pollutantmean <- function(directory = ".", pollutant, id = 1:332) {
 
-pollutant
-
 ## 'directory' is a character vector of length 1 indicating
 ## the location of the CSV files
 
@@ -51,27 +49,34 @@ pollutant
                     sprintf("%03d", as.numeric(id)), 
                     ".csv", sep="")
 
-    files
+## I tried for a whole day, like about 16 hours, to R'ify
+## this code using lapply, sapply, apply etc to read all of 
+## the required CSV files into one data structure.  I managed
+## to get the lot into memory, but not in a format that
+## was readily usable.  lapply gave me a list of lists
+## with no names, and did not like mean() AT ALL, unlist()
+## made it worse.  sapply did much the same deal.  I tried
+## the coerce functions as.data.bleh to no avail....
+
+## Initialise variables
+
+    N           <- 0
+    this_sum    <- 0
+    total       <- 0
+    mean        <- 0
 
 ## SUCK in the data set
-## being a Perl Monk this suits me more than FOR loops!
-## we iterate though our files vector, read the
-## appropriate CSV file, and combine the individual
-## data into a combined data set.
+# and calculate means
 
-    combined_data <- lapply(files, read.csv)
-
-    class(combined_data)
-    
-    combined_data
-
-    #colnames(combined_data) <- c("Date","sulfate","nitrate","ID")
-
-    #names(combined_data)
-
-##    mean(combined_data[,pollutant], na.rm = TRUE)
-
-
+    for (file in files) {
+        data        <- read.csv(file)
+        data        <- na.omit(data)            ## clean data, omit NAs
+        N           <- N + nrow(data)
+        this_sum    <- sum(data[,pollutant])
+        total       <- total + this_sum
+    }
+    mean <- round(total/N, 3)
+    print(mean)
 }
 
 
