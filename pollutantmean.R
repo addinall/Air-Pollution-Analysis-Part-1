@@ -17,6 +17,24 @@
 ##	pollutantmean("specdata", "nitrate", 23)
 ## 	[1] 1.281
 
+## --------------------------------------
+clean_table <- function(table, columns) {
+
+## this funtion iterates through a data table and
+## removes whole rows based on the validity of
+## one or more identified COLUMNS.  So if we have
+## a NaN in foo in a record, but we only care about
+## the value in bar, maintain the record in the data set.
+## If bar is NaN, remove the entire row.
+##
+## input:  table
+## output: table MINUS bad records
+
+      clean_rows <- complete.cases(table[, columns])
+        return(table[clean_rows, ])
+}
+
+
 
 ## -----------------------------------------------------------------
 pollutantmean <- function(directory = ".", pollutant, id = 1:332) {
@@ -70,7 +88,7 @@ pollutantmean <- function(directory = ".", pollutant, id = 1:332) {
 
     for (file in files) {
         data        <- read.csv(file)
-        data        <- na.omit(data)            ## clean data, omit NAs
+        data        <- clean_table(data,pollutant)
         N           <- N + nrow(data)
         this_sum    <- sum(data[,pollutant])
         total       <- total + this_sum
