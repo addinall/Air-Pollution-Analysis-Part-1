@@ -64,4 +64,36 @@ corr <- function(directory = ".", threshold = 0) {
 
 
 
+## first make use of an earlier function I wrote, complete.R
+## this returns a data frame with the id of datasets and the
+## number of complete observations in the dataset.  There is a second
+## argument to this function - id:range.
+## if we leave this out of the call the function defaults to 'ALL'
+##
+## I added some functionality to complete to prepend the
+## filenames examined and passed as to avoid doing the calculations here.
+## I was going to polymorph the function, but as this is a Uni
+## course, I may need to submit the original again so I just
+## made a copy and gave it a new moniker!!!
+
+    complete_cases <- complete_filenames(directory)
+
+## we now hold a data table in the format
+
+##      id nobs   filename
+## 1     1  117   specdata/001.csv
+## 2     2 1041   specdata/002.csv
+## [...]
+
+## now we strip our data set based on the value of the threshold passed
+## in as an argument
+
+    complete_cases <- complete_cases[complete_cases$nobs > threshold,]
+
+## now output the results
+
+    str(complete_cases)
+    length(complete_cases)
+
+
 }

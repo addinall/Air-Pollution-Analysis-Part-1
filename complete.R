@@ -99,5 +99,6 @@ complete <- function(directory = '.', id = 1:332) {
         }
     }
     complete_cases
+    return(complete_cases)
 }
 
