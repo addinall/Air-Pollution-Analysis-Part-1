@@ -72,6 +72,10 @@ complete_filenames <- function(directory = '.', id = 1:332) {
         ## it would make a LOT more sense if it returned zero...
         ## if we have some complete cases, then append them
         ## to the data frame
+        ##
+        ## stringsAsFactors = FALSE is important, for
+        ## some bizarre reason R does an automagikal
+        ## type shift otherwise...
 
         if (!is.null(n_nobs)) {
             complete_cases <- rbind(complete_cases, 
