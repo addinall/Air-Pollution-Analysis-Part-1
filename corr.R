@@ -49,7 +49,7 @@
 
 
 
-## -----------------------------------------------
+## --------------------------------------------------------
 corr <- function(directory = ".", threshold = 0) {
 
 ## 'directory' is a character vector of length 1 indicating
@@ -85,15 +85,25 @@ corr <- function(directory = ".", threshold = 0) {
 ## 2     2 1041   specdata/002.csv
 ## [...]
 
-## now we strip our data set based on the value of the threshold passed
+## now we strip our data set COLLECTION based on the value of the threshold passed
 ## in as an argument
 
     complete_cases <- complete_cases[complete_cases$nobs > threshold,]
 
-## now output the results
+## create an empty vector to hold the values used in the correlation analysis
 
-    str(complete_cases)
-    length(complete_cases)
+    correlation <- vector(mode="numeric", nrow(complete_cases)) 
+    index <- 0
 
+# and go and fetch the relevant data
 
+    for (file in complete_cases$filename) {
+
+        data <- read.csv(file)
+        data <- na.omit(data)               ## strip NA, NaN
+        index <- index + 1
+        correlation[index] <- cor(data$sulfate, data$nitrate)
+    }
+
+    return(correlation)
 }

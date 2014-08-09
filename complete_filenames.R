@@ -64,7 +64,7 @@ complete_filenames <- function(directory = '.', id = 1:332) {
                         sprintf("%03d", index), 
                             ".csv", sep="")
 
-        data        <- read.csv(file, as.is = TRUE)
+        data        <- read.csv(file)
         data        <- na.omit(data)
         n_nobs      <- nrow(data)
        

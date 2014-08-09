@@ -1,0 +1,33 @@
+I am a bit lost.  Don't want answers, but I don't really understand (even after reading the help and forums for a while) just what the cor() function is doing, and especially in regards to our assignment.  
+
+    cr <- corr("specdata", 150)
+    head(cr)
+    [1] -0.01896 -0.14051 -0.04390 -0.06816 -0.12351 -0.07589
+    summary(cr)
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    -0.2110 -0.0500  0.0946  0.1250  0.2680  0.7630
+
+That is what is EXPECTED.  What type of data object is cr?  I thought that R always forced coercion to a function result?  I really don't have the foggyest WHAT values I am supposed to be testing, so I thought I would just experiment with a few things and have a look-see.  My (incorrect obviously) end code...  
+  
+
+    result <- cor(correlation$sulfate, correlation$nitrate)
+
+    return(result)
+
+My run results against expected gives:  
+
+    > cr <- corr("specdata", 150)
+    > head(cr)
+    [1] 0.06088486
+    > summary(cr)
+
+    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+
+    0.06088 0.06088 0.06088 0.06088 0.06088 0.06088 
+
+cr doesn't even look the same shape as the expected result!Any examples to look at?  I worked through the practice OK.  And used the methods in there (more or less) to produce the HUGE table full of interesting data, then ran into a stop sign.  
+
+Hints?  
+  
+Cheers,  
+Mark.
